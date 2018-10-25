@@ -1,0 +1,15 @@
+<div style="text-align:center">
+  <h2>Book List</h2>
+  <table border="1" width="100%">
+    <tr>
+      <th>Name</th>
+      <th>Author</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let book of bookList">
+      <td>{{book.name}}</td>
+      <td>{{book.author.name}}</td>
+      <td><a routerLink="/author/{{book.author.id}}">View Author Info</a></td>
+    </tr>
+  </table>
+</div>

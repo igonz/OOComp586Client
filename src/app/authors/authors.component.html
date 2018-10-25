@@ -1,0 +1,11 @@
+<div style="text-align:center">
+  <h2>Author List</h2>
+  <h3>SELECTED AUTHOR: {{selectedAuthor.name}}</h3>
+  <table border="1" width="100%">
+    <tr *ngFor="let author of authorList">
+      <td>{{author.id}}</td>
+      <td>{{author.name}}</td>
+      <td><button (click)="onAuthorClicked(author)">View Books</button></td>
+    </tr>
+  </table>
+</div>
