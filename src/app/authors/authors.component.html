@@ -1,11 +1,10 @@
-<div style="text-align:center">
+<div style="text-align:center" *ngIf="isAuthenticated">
   <h2>Author List</h2>
-  <h3>SELECTED AUTHOR: {{selectedAuthor.name}}</h3>
   <table border="1" width="100%">
     <tr *ngFor="let author of authorList">
       <td>{{author.id}}</td>
       <td>{{author.name}}</td>
-      <td><button (click)="onAuthorClicked(author)">View Books</button></td>
+      <td><a routerLink="/author/{{author.id}}">View Books</a></td>
     </tr>
   </table>
 </div>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Author} from "../models/author";
+import {AuthorService} from "../author.service";
+import {ActivatedRoute} from "@angular/router";
+import {OktaAuthService} from "@okta/okta-angular";
 
 @Component({
   selector: 'app-authors',
@@ -9,15 +12,23 @@ import {Author} from "../models/author";
 export class AuthorsComponent implements OnInit {
 
   authorList:Author[];
-  selectedAuthor: Author;
+  isAuthenticated: boolean;
 
-  constructor() { }
+  constructor(private authorService:AuthorService, private route:ActivatedRoute, private oktaAuth: OktaAuthService) { }
 
-  ngOnInit() {
-    // this.authorList = AUTHORS;
+  async ngOnInit() {
+    this.authorService.getAllAuthors()
+      .subscribe((authorList) => {
+        this.authorList = authorList;
+      });
+
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    this.oktaAuth.$authenticationState.subscribe(
+      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
+    );
   }
 
   onAuthorClicked(author:Author) {
-    this.selectedAuthor = author;
+
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Book} from "../models/book";
 import {BookService} from "../book.service";
 import {Router} from "@angular/router";
+import {OktaAuthService} from "@okta/okta-angular";
 
 @Component({
   selector: 'app-books',
@@ -9,15 +10,21 @@ import {Router} from "@angular/router";
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
-  bookList:Book[];
+  bookList: Book[];
+  isAuthenticated: boolean;
 
-  constructor(private bookService:BookService, private router:Router) {
+  constructor(private bookService: BookService, private router: Router, private oktaAuth: OktaAuthService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.bookService.getAllBooks()
-      .subscribe((books) =>{
+      .subscribe((books) => {
         this.bookList = books;
       })
+
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    this.oktaAuth.$authenticationState.subscribe(
+      (isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated
+    );
   }
 }

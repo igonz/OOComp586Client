@@ -1,10 +1,17 @@
-<div style="text-align:center">
+<div style="text-align:center" *ngIf="isAuthenticated">
   <h1>
     <img width="4%" src="https://cdn4.iconfinder.com/data/icons/eldorado-culture/40/books_2-512.png"/>
     <p>Welcome to the {{ title }}!</p>
+    <button class="button button2" (click)="logout()">Log Out</button>
   </h1>
   <nav>
     <a routerLink="/viewBookList" style="padding-right: 2%">View Book List</a>
     <a routerLink="/viewAuthorList">View Author List</a>
   </nav>
+</div>
+<div style="text-align:center" *ngIf="!isAuthenticated">
+  <img width="4%" src="https://cdn4.iconfinder.com/data/icons/eldorado-culture/40/books_2-512.png"/>
+  <h1>Welcome to the {{ title }}!</h1>
+  <h2 style="color: red">Please Log in to View Books</h2>
+  <button class="button" (click)="login()"> Log In</button>
 </div>

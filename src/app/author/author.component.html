@@ -1,4 +1,4 @@
-
+<div *ngIf="!accessDenied">
 <h1 *ngIf="author">{{author.name}}</h1>
 <h2>Books</h2>
 <table border="1" width="100%" *ngIf="author">
@@ -6,3 +6,7 @@
     <td>{{book.name}}</td>
   </tr>
 </table>
+</div>
+<div *ngIf="accessDenied">
+  <h2>Access Denied!</h2>
+</div>
